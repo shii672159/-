@@ -5,7 +5,7 @@
         style="height:52px;flex-shrink:0"
         v-model="value"
         cancel-text="取消"
-        placeholder="搜索">
+        placeholder="Search">
       </mt-search>
     <section>
       <router-view @toparent='getdata'></router-view>

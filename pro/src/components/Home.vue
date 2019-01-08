@@ -40,7 +40,7 @@
 import axios from 'axios';
 import Mock from 'mockjs';
 
-Mock.mock('http://jx.xuzhixiang.top/ap/api/productlist.php',{
+Mock.mock('home.php',{
   'data|3':[
     {
       'name': '@name()',
@@ -61,8 +61,6 @@ export default {
   name: 'Home',
   data () {
     return {
-      str: 'hello world vuejiaoshoujia',
-      tit: '首页',
       list:[],
       username:''
     }
@@ -71,7 +69,7 @@ export default {
     var _this = this;
     axios({
       method: 'get',
-      url: 'http://jx.xuzhixiang.top/ap/api/productlist.php',
+      url: 'home.php',
       params: {}
     }).then((data)=>{
       console.log(data.data.data);
@@ -144,10 +142,17 @@ ul,li{
   list-style: none;
 }
 .footer ul{
+
   display: flex;
 }
 .footer li{
+  height: 22px;
+  line-height: 16px;
   margin-right: 5px;
   font-size: 14px;
+}
+.out>li{
+  padding-top: 4px;
+  border-bottom: 1px solid #eee;
 }
 </style>
