@@ -1,12 +1,6 @@
 <template>
-  <div class="hello">
-
-    <mt-search
-      style="height:52px;flex-shrink:0"
-      v-model="value"
-      cancel-text="Cancel"
-      placeholder="Search">
-    </mt-search>
+  <div class="out">
+    <header> <span class="fanhui" @click="fanhui()">&lt; </span>话题</header>
     <section>
       <router-view @toparent='getdata'></router-view>
     </section>
@@ -18,34 +12,56 @@
       <router-link to='/my' tag="span"><em class="iconfont icon-wode"></em><p>我的</p></router-link>
     </footer>
   </div>
+
 </template>
 
 <script>
+
 export default {
-  name: 'HelloWorld',
+  name: 'Huati',
   data () {
     return {
-      value: ''
+      title:'',
+      username:''
     }
   },
   methods: {
-    getdata(msg){
-      this.title=msg
+    getdata (msg) {
+      this.title = msg;
+    },
+    fanhui(){
+      this.$router.go(-1)
     }
-  },
+  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   footer .router-link-active{
-    color: #999;
+      color: #999;
+    }
+  header{
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+    font-size: 18px;
+	}
+  .fanhui{
+		  position: absolute;
+   		 left: 10px;
+   		 color: #ccc;
+   		 font-size: 25px;
+	}
+  html,body,.out{
+    height: 100%
   }
-
-  .hello{
+  .out{
     height: 100vh;
     display: flex;
     flex-direction: column;
+  }
+  footer .router-link-active{
+    color: #999;
   }
   footer{
     height: 50px;
@@ -54,9 +70,11 @@ export default {
     line-height: 50px;
   }
 
+
   section{
     flex: 1;
     overflow: auto;
+    height: 100%;
   }
   footer{
     border-top: 1px solid #ccc;

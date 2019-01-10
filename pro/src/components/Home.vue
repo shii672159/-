@@ -1,16 +1,16 @@
 <template>
   <div>
     <mt-swipe :auto="3000" style="height: 200px;">
-      <mt-swipe-item style="background: red;">1</mt-swipe-item>
-      <mt-swipe-item style="background: yellow;">2</mt-swipe-item>
+      <mt-swipe-item v-for="(item,idx) in lunbo" :key="idx" style="background: url(item.img);">{{item.img}}</mt-swipe-item>
+      <!-- <mt-swipe-item style="background: yellow;">2</mt-swipe-item>
       <mt-swipe-item style="background: pink;">3</mt-swipe-item>
-      <mt-swipe-item style="background: black;">4</mt-swipe-item>
+      <mt-swipe-item style="background: black;">4</mt-swipe-item> -->
     </mt-swipe>
     <nav>
-      <span>种草</span>
-      <span>设计师</span>
-      <span>专题</span>
-      <span>话题</span>
+      <router-link to='/shequ' tag="span">种草</router-link>
+      <router-link to='/shejishi' tag="span">设计师</router-link>
+      <router-link to='/zhuanti' tag="span">专题</router-link>
+      <router-link to='/huati' tag="span">话题</router-link>
     </nav>
     <ul class="out">
       <li v-for="item in list">
@@ -40,6 +40,14 @@
 import axios from 'axios';
 import Mock from 'mockjs';
 
+Mock.mock('lunbotu.php',{
+  'data|4':[
+    {
+      "img":"@image('300x200')",
+    }
+  ]
+})
+
 Mock.mock('home.php',{
   'data|3':[
     {
@@ -62,11 +70,20 @@ export default {
   data () {
     return {
       list:[],
-      username:''
+      lunbo:[],
+      username:'',
     }
   },
   mounted() {
     var _this = this;
+    axios({
+      method: 'get',
+      url: 'lunbotu.php',
+      params: {}
+    }).then((data)=>{
+      console.log(data.data.data);
+      _this.lunbo = data.data.data
+    })
     axios({
       method: 'get',
       url: 'home.php',
@@ -121,6 +138,8 @@ nav span{
 }
 .main{
   width: 100%;
+  line-height: 24px;
+  margin-top: 2px;
 }
 .main p{
   font-size: 14px;
@@ -133,6 +152,7 @@ nav span{
 .main img{
   width: 100%;
   height: 150px;
+  margin: 4px 0;
 }
 .footer{
   display: flex;
